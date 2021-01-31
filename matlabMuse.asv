@@ -15,7 +15,7 @@ clc;
 museName = 'MuseS-10A8';
 
 % decide to plot EEG (1), FFT (2), or Wavelets (3)
-plotWhat = 3;
+plotWhat = 1;
 
 % muse sampling rate
 sampleRate = 256;
