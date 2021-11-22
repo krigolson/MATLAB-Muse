@@ -12,17 +12,17 @@ clc;
 % memory!
 
 % specify a Muse Name
-museName = 'MuseS-10A8';
+museName = 'Muse-AA54';
 
 % decide to plot EEG (1), FFT (2), or Wavelets (3)
-plotWhat = 3;
+plotWhat = 1;
 
 % muse sampling rate
 sampleRate = 256;
 % key parameter for biquad filters, this is a recommended value
 bandWidth = 0.707;
 % turn on high pass, low pass, and notch with 1, off with 0
-whichFilters = [1 0 1];
+whichFilters = [1 1 1];
 
 % set up biquad high pass filter coefficients
 frequency = 0.1;
@@ -154,6 +154,7 @@ while collectData
     plotBuffer(:,13:512) = plotBuffer(:,1:500);
     plotBuffer(:,1:12) = plotSample;
     
+    % plot raw eeg data
     if plotWhat == 1
     
         subplot(2,2,3);
@@ -179,6 +180,10 @@ while collectData
         drawnow;
         
     end
+    
+    % plot FFT output
+    % define maximum y value for power
+    yMax = 20;
     if plotWhat == 2
 
         fftCoefficients = doMuseFFT(plotBuffer,sampleRate);
@@ -186,27 +191,28 @@ while collectData
         
         barPlot = bar(c,fftCoefficients(1,:),'FaceColor','flat');
         barPlot.CData = col;
-        ylim([0 10]);
+        ylim([0 yMax]);
         title('TP9');
         subplot(2,2,1);
         barPlot = bar(c,fftCoefficients(2,:),'FaceColor','flat');
         barPlot.CData = col;
-        ylim([0 10]);
+        ylim([0 yMax]);
         title('AF7');
         subplot(2,2,2);
         barPlot = bar(c,fftCoefficients(3,:),'FaceColor','flat');
         barPlot.CData = col;
-        ylim([0 10]);
+        ylim([0 yMax]);
         title('AF8');
         subplot(2,2,4);
         barPlot = bar(c,fftCoefficients(4,:),'FaceColor','flat');
         barPlot.CData = col;
-        ylim([0 10]);
+        ylim([0 yMax]);
         title('TP10');
         drawnow; 
         
     end
     
+    % plot the wavelets
     if plotWhat == 3
         
         waveletData = doMuseWavelet(plotBuffer);
