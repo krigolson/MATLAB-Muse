@@ -12,10 +12,10 @@ clc;
 % memory!
 
 % specify a Muse Name
-museName = 'MuseS-10A8';
+museName = 'MuseS-4161';
 
 % decide to plot EEG (1), FFT (2), or Wavelets (3)
-plotWhat = 3;
+plotWhat = 1;
 
 % muse sampling rate
 sampleRate = 256;
